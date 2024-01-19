@@ -2,8 +2,6 @@
 export const createUser = (username, name, phone, email, city, street, zipcode, container) => {
     const card = document.createElement("div")
     card.classList.add("card", "col-4", "p-0", "text-bg-dark", "border-secondary")
-    card.style.maxWidth = "30rem"
-    card.style.minWidth = "18rem"
 
     const cardHeader = document.createElement("div")
     cardHeader.classList.add("card-header", "w-100", "border-secondary")
@@ -35,4 +33,16 @@ export const createUser = (username, name, phone, email, city, street, zipcode, 
     cardBody.appendChild(userAddress)
 
     container.appendChild(card)
+}
+
+export const spinner = (container) => {
+    const spinnerContainer = document.createElement("div")
+    spinnerContainer.classList.add("spinner")
+
+    const spinnerGif = document.createElement("img")
+    spinnerGif.setAttribute("src", "./assets/spinner.gif")
+    spinnerGif.classList.add("spinner_gif")
+    spinnerContainer.appendChild(spinnerGif)
+
+    container.appendChild(spinnerContainer)
 }
