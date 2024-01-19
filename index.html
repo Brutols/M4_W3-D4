@@ -24,7 +24,7 @@
     <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
         <div class="container-fluid">
           <a class="navbar-brand" onclick="window.location.reload()" style="cursor: pointer;">Home</a>
-          <form class="d-flex" role="search">
+          <div class="d-flex">
             <div class="input-group">
                 <label class="input-group-text" for="inputGroupSelect01">Filter</label>
                 <select class="form-select" id="inputGroupSelect01">
@@ -35,8 +35,8 @@
                 </select>
               </div>
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="text-input_01">
-            <button class="btn btn-outline-primary" type="submit" id="btn-submit_01">Search</button>
-          </form>
+            <button class="btn btn-outline-primary" id="btn-submit_01">Search</button>
+            </div>
         </div>
       </nav>
 

@@ -37,7 +37,7 @@ export const createUser = (username, name, phone, email, city, street, zipcode, 
 
 export const spinner = (container) => {
     const spinnerContainer = document.createElement("div")
-    spinnerContainer.classList.add("spinner")
+    spinnerContainer.classList.add("spinner", "d-none")
 
     const spinnerGif = document.createElement("img")
     spinnerGif.setAttribute("src", "./assets/spinner.gif")

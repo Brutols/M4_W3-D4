@@ -1,27 +1,35 @@
-import * as components from "./components.js";
-import * as fetch from "./fetch.js";
-import * as utility from "./utility.js";
+import {createUser, spinner} from "./components.js";
+import {fetchUsers} from "./fetch.js";
+import {
+  filterUsers,
+  createQuerySelector,
+  getItemFromLocalStorage,
+  filteringUsers,
+} from "./utility.js";
 
-const url = "https://jsonplaceholder.typicode.com/users";
+const URL = "https://jsonplaceholder.typicode.com/users";
 
-const container = document.querySelector(".card_container");
-const searchBtn = document.querySelector("#btn-submit_01");
+const container = createQuerySelector(".card_container");
+const searchBtn = createQuerySelector("#btn-submit_01");
 
-const dropdownPlaceholder = localStorage.getItem("dropdownValue");
-const textPlaceholder = localStorage.getItem("textValue");
+const dropdownPlaceholder = getItemFromLocalStorage("dropdownValue");
+const textPlaceholder = getItemFromLocalStorage("textValue");
 
-const dropdown = document.querySelector("#inputGroupSelect01");
-const textInput = document.querySelector("#text-input_01");
+const dropdown = createQuerySelector("#inputGroupSelect01");
+const textInput = createQuerySelector("#text-input_01");
 
 dropdownPlaceholder ? (dropdown.value = dropdownPlaceholder) : "...";
 textPlaceholder ? (textInput.value = textPlaceholder) : "";
 
+spinner(container);
+const spinnerEl = createQuerySelector(".spinner");
+
 const showUsers = async () => {
-  components.spinner(container);
+  spinnerEl.classList.remove("d-none")
   try {
-    const users = await fetch.fetchUsers(url);
+    const users = await fetchUsers(URL);
     users.forEach((user) => {
-      components.createUser(
+      createUser(
         user.username,
         user.name,
         user.phone,
@@ -32,8 +40,7 @@ const showUsers = async () => {
         container
       );
     });
-    const spinner = document.querySelector(".spinner");
-    spinner.classList.add("d-none");
+    spinnerEl.classList.add("d-none");
   } catch (error) {
     alert(`error: ${error}`);
   }
@@ -42,15 +49,14 @@ const showUsers = async () => {
 window.onload = showUsers;
 
 const showFilteredUsers = async (ev) => {
-  const spinner = document.querySelector(".spinner");
-  spinner.classList.remove("d-none");
+  spinnerEl.classList.remove("d-none")
   ev.preventDefault();
   try {
-    const userToFilter = await fetch.fetchUsers(url);
-    const userToShow = await utility.filterUsers(userToFilter);
+    const userToFilter = await fetchUsers(URL);
+    const userToShow = await filterUsers(userToFilter);
     container.innerHTML = "";
     userToShow.map((user) => {
-      components.createUser(
+      createUser(
         user.username,
         user.name,
         user.phone,
@@ -61,7 +67,7 @@ const showFilteredUsers = async (ev) => {
         container
       );
     });
-    spinner.classList.add("d-none");
+    spinnerEl.classList.add("d-none")
   } catch (error) {
     alert(`error: ${error}`);
   }
